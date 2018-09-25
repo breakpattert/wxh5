@@ -29,6 +29,16 @@ exports.cssLoaders = function (options) {
     }
   }
 
+  
+  const sassResourceLoader = {
+    loader: 'sass-resources-loader',
+    options: {
+      resources: [
+        path.resolve(__dirname, '../src/styles/base.scss'),
+      ]
+    }
+  }
+
   const postcssLoader = {
     loader: 'postcss-loader',
     options: {
@@ -37,7 +47,7 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
+  function generateLoaders (loader, loaderOptions, anotherLoader) {
     const loaders = [cssLoader, px2remLoader];
     // const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
@@ -50,6 +60,7 @@ exports.cssLoaders = function (options) {
       })
     }
 
+    if (!!anotherLoader) loaders.push(anotherLoader)
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
@@ -67,8 +78,8 @@ exports.cssLoaders = function (options) {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    sass: generateLoaders('sass', { indentedSyntax: true }, sassResourceLoader),
+    scss: generateLoaders('sass', {}, sassResourceLoader),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }
