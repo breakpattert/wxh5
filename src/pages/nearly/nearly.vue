@@ -1,17 +1,15 @@
 <template>
 	<div class="container lineTop" @click="clickBody($event)">
-		<!-- <button v-if="!hasAuthInfo" open-type="getUserInfo"  @getuserinfo="bindGetUserInfo" @click="getUserInfo11" style='width:100%;height:100%;position:absolute;opacity:0;z-index:9999999999;'>
-    </button> -->
-		<!-- <div @click="isBuild" class="fansAuth"></div> -->
+
 		<tabBar cur_index="1"></tabBar>
-		<goAuth></goAuth>
+
 		<div class="swiper">
 			<div class="navbar" style="position: fixed;top:0px;z-index:100000;">
-				<block v-for="(item,index) in tabs" :key="index">
-					<div :id="index" :class="{'navbar_item_on':activeIndex == index}" class="navbar_item" @click="tabClick">
+	
+					<div v-for="(item,index) in tabs" :key="index" :id="index" :class="{'navbar_item_on':activeIndex == index}" class="navbar_item" @click="tabClick(index)">
 						<div class="navbar_title" :class="{'selective':activeIndex == index}">{{item.name}}</div>
 					</div>
-				</block>
+		
 				<div class="navbar_slider" :class="navbarSliderClass"></div>
 			</div>
 
@@ -37,21 +35,7 @@
 								</div>
 							</div>
 
-							<!--<div class="codeall">
-								<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex;padding:15px 0;width:400px;" :style="{ width: width_scroll + 'px' }">
-									<view v-for="(itemIn,key) in item.merchInfo" :key='key' class="v_code">
-										<div class="lis" @click="$router.push({ path:'/pages/busineshop/shop',query:{id:itemIn.id}})">
-											<a href="">
-												<img :src="itemIn.logo" alt="" />
-											</a>
-											<p class="f14">{{itemIn.discount?itemIn.discount.text:''}}</p>
-										</div>
-
-									</view>
 							
-
-								</scroll-view>
-							</div>-->
 							<!--显示店铺信息的title蒙版-->
 							<div class="moderly">
 							
@@ -77,22 +61,7 @@
 									<p>24家品牌活动</p>
 								</div>
 							</div>
-<!--
-							<div class="codeall">
-								<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex;padding:15px 0;width:400px;" :style="{ width: width_scroll + 'px' }">
-									<view v-for="(itemIn,key) in item.merchInfo" :key='key' class="v_code">
-										<div class="lis" @click="$router.push({ path:'/pages/busineshop/shop',query:{id:itemIn.id}})">
-											<a href="">
-												<img :src="itemIn.logo" alt="" />
-											</a>
-											<p class="f14">{{itemIn.discount?itemIn.discount.text:''}}</p>
-										</div>
 
-									</view>
-							
-
-								</scroll-view>
-							</div>-->
 							<div class="moderly">
 						
 							</div>
@@ -110,13 +79,14 @@
 			
 						<div class="main_img">
 							<div class="swiperContainer">
-								<swiper :indicator-dots="indicatorDots" :current="swiperCurrent" :autoplay="autoplay" :interval="interval" :duration="duration" @change="bannerSwiperChange" class="swiper">
-									<block v-for="(item,index) in RecommendShop?RecommendShop.images:[]" :key="index">
-										<swiper-item>
-											<image :src="item" class="slide-image" />
-										</swiper-item>
-									</block>
-								</swiper>
+              <mt-swipe style="height:260px" :show-indicators="indicatorDots" 
+              :defaultIndex="swiperCurrent" :autoplay="autoplay"
+          :auto="duration" @change="bannerSwiperChange" class="swiper">
+         
+            <mt-swipe-item v-for="(item,index) in RecommendShop?RecommendShop.images:[]" :key="index">
+                  <img :src="item" class="slide-image" />
+            </mt-swipe-item>
+              </mt-swipe>
 								<div class="dots">
 									<block v-for="(item,index) in RecommendShop?RecommendShop.images:[]" :key="index">
 										<view class="dot" :class="{'active':swiperCurrent == index}"></view>
@@ -161,12 +131,12 @@
 			</div>
 		</div>
 
-		<scroll-view class='category' v-if='currentTab==1' scroll-y="true" :style="{ height: h_scroll + 'px'}">
-			<view @click="getSecondShopList(item.id,index)"  class="y_tabs align f16" v-for="(item,index) in categoryParent" :key="index" :class="{'navbar_ybars':ybarsIndex == index}">
+		<div class='category' v-if='currentTab==1' scroll-y="true" :style="{ height: h_scroll + 'px'}">
+			<div @click="getSecondShopList(item.id,index)"  class="y_tabs align f16" v-for="(item,index) in categoryParent" :key="index" :class="{'navbar_ybars':ybarsIndex == index}">
 				<span class="line_bar" :class="{'line_bars_show':ybarsIndex == index}"></span> {{item.catename}}
-			</view>
+			</div>
 
-		</scroll-view>
+		</div>
 
 		<div class="homeHeader w100">
 
@@ -249,22 +219,17 @@ export default {
         type0: "店铺",
         type1: "商品"
       },
-	  userword: "",
-	  page : 1,
-      prePage : 4,
-      isBottom:false
-	  
+      userword: "",
+      page: 1,
+      prePage: 4,
+      isBottom: false
     };
   },
   components: {
     tabBar,
     sercah
   },
-  created() {
-    var res = wx.getSystemInfoSync();
-    this.width_scroll = res.windowWidth - 30;
-    this.h_scroll = res.windowHeight - 90;
-  },
+
   methods: {
     searchFocus() {
       this.placeholder = "";
@@ -299,33 +264,15 @@ export default {
       }
     },
     tabClick(e) {
-      this.activeIndex = e.currentTarget.id;
+      this.activeIndex = e;
       this.currentTab = this.activeIndex;
     },
     swiperChange(e) {
-      this.currentTab = e.mp.detail.current;
+      this.currentTab = e;
       this.activeIndex = this.currentTab;
-      if (this.currentTab == 0) {
-        var query = wx.createSelectorQuery();
-        query
-          .select("#item1")
-          .boundingClientRect(res => {
-            this.contentHeight = res.height + "px";
-          })
-          .exec();
-      } else {
-        var query = wx.createSelectorQuery();
-        query
-          .select("#item2")
-          .boundingClientRect(res => {
-            this.contentHeight = res.height + 50 + "px";
-          })
-          .exec();
-      }
     },
     shoptogle() {
-		
-      		this.toglestatus = !this.toglestatus;
+      this.toglestatus = !this.toglestatus;
     },
     async herftype() {
       let types = 0;
@@ -341,13 +288,11 @@ export default {
         path: "/pages/searchshop/searchresult",
         query: { type: types, keyword: this.userword }
       });
-	},
-	clickBody(){
-	
-		this.toglestatus = false;
-	},
+    },
+    clickBody() {
+      this.toglestatus = false;
+    },
     texttab(e) {
-	
       if (this.searchtype.type1 == "店铺") {
         this.searchtype.type1 = "商品";
         this.searchtype.type0 = "店铺";
@@ -370,7 +315,7 @@ export default {
       }
     },
     bannerSwiperChange(e) {
-      this.swiperCurrent = e.mp.detail.current;
+      this.swiperCurrent = e;
     },
     onAnimationfinish() {
       console.log("滑动完成.....");
@@ -391,15 +336,7 @@ export default {
       }
     }
   },
-  mounted() {
-    var query = wx.createSelectorQuery();
-    query
-      .select("#item1")
-      .boundingClientRect(res => {
-        this.contentHeight = res.height + "px";
-      })
-      .exec();
-  },
+  mounted() {},
   computed: {
     navbarSliderClass() {
       if (this.activeIndex == 0) {
@@ -411,34 +348,22 @@ export default {
     }
   },
   onPullDownRefresh() {},
-	async onReachBottom() {
-    
-   if( this.isBottom) return
-     
-     let data = await this.$http.marketList(
-          this.$store.state.user.locationInfo.latitude,
-          this.$store.state.user.locationInfo.longitude,
-          ++this.page,
-          this.prePage,
-          1
-		)
-		if(data.result.data.length<this.prePage){
-			this.isBottom=true
-		}
-		this.marketList = [...this.marketList,...data.result.data];
-   
-    
-   	
+  async onReachBottom() {
+    if (this.isBottom) return;
 
-    
+    let data = await this.$http.marketList(
+      this.$store.state.user.locationInfo.latitude,
+      this.$store.state.user.locationInfo.longitude,
+      ++this.page,
+      this.prePage,
+      1
+    );
+    if (data.result.data.length < this.prePage) {
+      this.isBottom = true;
+    }
+    this.marketList = [...this.marketList, ...data.result.data];
   },
-  async onShow() {
-    wx.hideTabBar();
-    this.hasauth();
-
-    let res = wx.getSystemInfoSync();
-    this.winWidth = res.windowWidth;
-
+  async created() {
     const [remarketList, data, data1, RecommendShop] = await this._U
       .PromiseAll(
         this.$http.marketList(
@@ -492,7 +417,7 @@ export default {
 
     // const [RecommendShoperr,RecommendShop] = await this._to(this.$http.getRecommendShop(this.$store.state.user.clusterInfo.id))
     this.RecommendShop = RecommendShop.result;
-    console.log(this.RecommendShop,9)
+    console.log(this.RecommendShop, 9);
   }
 };
 </script>
@@ -506,6 +431,7 @@ export default {
     left: 0;
     width: 100px;
     background: #f2f2f2;
+    overflow-y: scroll;
     .y_tabs {
       line-height: 60px;
       font-family: PingFang-SC-Bold;
@@ -940,6 +866,7 @@ export default {
 
           .swiperContainer {
             width: 100%;
+            height: 100%;
             position: relative;
             .swiper {
               width: 100%;

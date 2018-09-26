@@ -504,7 +504,7 @@ export default {
 	
   },
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
         if(this.$route.query.orderType !== undefined){
      
           this.currentTab = parseInt(this.$route.query.orderType)

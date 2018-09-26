@@ -129,7 +129,7 @@
 		},
 		mounted() {},
 		onPullDownRefresh() {},
-		async onShow() {}
+		async created() {}
 	};
 </script>
 <style scoped lang='scss'>

@@ -6,15 +6,13 @@ module.exports = [
     name: 'home',
     meta: {
       nav: true
-    },
-    config: {
-      enablePullDownRefresh: false,
-      onReachBottomDistance: 200,
-      usingComponents: {
-        'van-slider': '../../static/iview2/slider/index',
-        'van-popup': '../../static/iview2/popup/index',
-        'zan-loadmore': '../../static/iview2/loadmore/index'
-      }
+    }
+  },
+  {
+    path: '/pages/home/home',
+    name: 'home',
+    meta: {
+      nav: true
     }
   },
   {
@@ -25,11 +23,7 @@ module.exports = [
     },
     config: {
       navigationBarTitleText: '附近',
-      enablePullDownRefresh: false,
-      onReachBottomDistance: 200,
-      usingComponents: {
-        'zan-loadmore': '../../static/iview2/loadmore/index'
-      }
+      enablePullDownRefresh: false
     }
   },
   {
@@ -73,11 +67,7 @@ module.exports = [
     name: 'myOrder',
     config: {
       navigationBarTitleText: '我的订单',
-      enablePullDownRefresh: false,
-      onReachBottomDistance: 200,
-      usingComponents: {
-        'zan-loadmore': '../../static/iview2/loadmore/index'
-      }
+      enablePullDownRefresh: false
     }
   },
   {
@@ -189,7 +179,7 @@ module.exports = [
     }
   },
   {
-    path: '/pages/goodsDetail/goodsDetail',
+    path: '/pages/goodsDetail/index',
     name: 'goodsDetail',
     config: {
       navigationBarTitleText: '商品详情',

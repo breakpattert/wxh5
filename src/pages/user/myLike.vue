@@ -100,7 +100,7 @@ export default {
 
   },
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
 
   }
 };

@@ -202,7 +202,7 @@ export default {
   onReady: function() {
       this.getLngLat()
   },
-  onShow() {  
+  created() {  
     
 		// this.latitude= this.$store.state.user.locationInfo.latitude;
 		// this.longitude= this.$store.state.user.locationInfo.longitude;

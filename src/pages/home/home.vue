@@ -15,13 +15,6 @@
       <div class="footH"></div>
     </div>
 
-    <!-- <button v-if="!isNoticeAuth" open-type="getUserInfo" 
-    @getuserinfo="bindGetUserInfo" @click="getUserInfo11"
-     class="userAuth">
-    </button> -->
-
-    
-    <!-- <div @click="$router.push({ path:'/pages/busineshop/shop',query:{id:184}})">去店铺</div> -->
     <div class="homeHeader lineBottom w100">
       <span class="adressIcon ml15 mr5" @click="$router.push({ path: '/pages/home/GoCity'})"></span>
       <span class="f12 color28 mr5 city" @click="$router.push({ path: '/pages/home/GoCity'})">{{city}}</span>
@@ -53,10 +46,13 @@
         </div>
       </div>
       <div class="swiperContainer">
-        <swiper style="height:260px" :indicator-dots="indicatorDots" :current="swiperCurrent" :autoplay="autoplay"
-          :interval="interval" :duration="duration" @change="swiperChange" class="swiper">
-          <block v-for="(item,index) in everyRecommendList" :key="index">
-            <swiper-item @click="herfrecommend(item.type,item.linkid,item.id)">
+
+ 
+        <mt-swipe style="height:260px" :show-indicators="indicatorDots" :defaultIndex="swiperCurrent" :autoplay="autoplay"
+          :auto="duration" @change="swiperChange" class="swiper">
+         
+            <mt-swipe-item v-for="(item,index) in everyRecommendList" :key="index"
+             @click="herfrecommend(item.type,item.linkid,item.id)">
               <div>
                 <img class="banner" :src="item.thumb" alt="">
               </div>
@@ -64,9 +60,9 @@
                 <div class="contentTitle mt12 f13 color29">{{item.title}}</div>
                 <div class="mt8 color9a f12">{{item.description}}</div>
               </div>
-            </swiper-item>
-          </block>
-        </swiper>
+            </mt-swipe-item>
+         
+        </mt-swipe>
       </div>
     </div>
 
@@ -161,7 +157,8 @@
       </div>
 
       <div class="nearly">
-        <van-popup :show="showTop" custom-class="top" @close="togglePopup" position="top" catchtouchmove="true">
+
+        <mt-popup  v-model="showTop"  position="top">
           <div class="nearlysearch">
             <div class="myToast">
               <h3>优惠活动</h3>
@@ -184,7 +181,13 @@
                
                 
                 <div class="s_input">
-                  <van-slider custom-class="slider" :value="value" step="2" bar-height="10px" @change="onChange" />
+                  <mt-range v-model.lazy="value"
+                      :min="2"
+                      :max="100"
+                      :step="2"
+                      :bar-height="10">
+                    </mt-range>
+                  <!-- <van-slider custom-class="slider" :value="value" step="2" bar-height="10px" @change="onChange" /> -->
                 </div>
 
               </div>
@@ -195,7 +198,11 @@
             </div>
 
           </div>
-        </van-popup>
+        </mt-popup>
+
+        <!-- <van-popup :show="showTop" custom-class="top" @close="togglePopup" position="top" catchtouchmove="true">
+         
+        </van-popup> -->
 
         <div class="goodsContent">
           <div class="item lineBottom" v-for="(item,index) in nearlySale" :key="index" @click="$router.push({ path:'/pages/busineshop/shop',query: { id: item.id }})">
@@ -274,7 +281,7 @@ export default {
       swiperCurrent: 0,
       autoplay: true,
       interval: 5000,
-      duration: 1000,
+      duration: 5000,
       showTop: false,
       showsheader: false,
       showsheader2: false,
@@ -325,6 +332,9 @@ export default {
        this.hasFindSale='none'
        this.selelet_active = null;
        this.value =2
+    },
+    value(ne,od){
+      console.log(ne)
     }
   },
   onPageScroll: function(e) {
@@ -336,117 +346,11 @@ export default {
   },
   methods: {
     ...mapActions(["getUserOpen", "getAllProducts"]),
-    async hasauth() {
-      if (
-        this.$store.state.user.userInfo &&
-        this.$store.state.user.userInfo.mobile
-      ) {
-        this.hasAuthInfo = true;
-        this.isNoticeAuth = true;
-        if (!this.$store.state.user.userOpen) {
-          await this.getUserOpen();
-          this.getAllProducts();
-        }
-        return;
-      }
-      const res = await getSetting();
-
-      if (res.authSetting["scope.userInfo"]) {
-        console.log("用户已经授权过");
-        this.hasAuthInfo = true;
-        this.isNoticeAuth = true;
-
-        if (this.$store.state.user.doAuth) return;
-
-        await this.getAuthInfo();
-      } else {
-        console.log("用户还未授权过");
-      }
-    },
-    async opensetting(e) {
-      console.log(e);
-      this.getPosition();
-    },
-    async bindGetUserInfo({ mp }) {
-      const { detail } = mp;
-      if (detail.rawData) {
-        const encryptedData = detail.encryptedData;
-        const iv = detail.iv;
-        this.user_Info = detail.userInfo;
-        if (!this.$store.state.user.userOpen) {
-          await this.getUserOpen();
-          this.getAllProducts();
-        }
-        const userOpen = this.$store.state.user.userOpen;
-        let authInfo = "";
-
-        try {
-          authInfo = await this.$http.doAuth(
-            userOpen.openid,
-            encryptedData,
-            iv,
-            userOpen.session_key,
-            userOpen.authkey
-          );
-        } catch (error) {
-          this.$tips.alert(error);
-        }
-
-        authInfo["openid"] = "sns_wa_" + authInfo.openId;
-        authInfo.openId = "sns_wa_" + authInfo.openId;
-        this.$store.commit("SET_USER_INFO", authInfo);
-        this.$store.commit("SET_DO_AUTH", true);
-        this.isNoticeAuth = true;
-
-        if (authInfo) {
-          const res = await this.$http.getPersonInfo(authInfo.openId);
-
-          if (res.mobile) {
-            if (mp.target.dataset.eventid == "5") {
-              this.$router.push({ path: "/pages/user/myCar" });
-            } else if (mp.target.dataset.eventid == "1") {
-              this.$router.push({ path: "/pages/user/user", isTab: true });
-            }
-          } else {
-            this.$router.push({ path: "/pages/login/bindPhone" });
-          }
-        }
-      } else {
-        console.log("用户按了拒绝按钮");
-        this.isNoticeAuth = true;
-        return;
-      }
-    },
+   
     async getPosition() {
-      var that = this;
-      // 选定商圈位置获取附近优惠
-      const res = await getSetting();
-      if (!res.authSetting["scope.userLocation"]) {
-        wx.authorize({
-          scope: "scope.userLocation",
-          success(res) {
-            console.log(res.errMsg); //用户授权后执行方法
-            that.posPopShow = false;
-
-            if (that.$store.state.user.locationInfo) {
-              return {
-                latitude: that.$store.state.user.locationInfo.latitude,
-                longitude: that.$store.state.user.locationInfo.longitude
-              };
-            }
-            getLocation().then(data => {
-              that.initData(data);
-            });
-          },
-          fail(err) {
-            //用户拒绝授权后执行
-            console.log(err); //用户授权后执行方法
-            that.posPopShow = true;
-          }
-        });
-      } else {
-        let [err1, data] = await this._to(getLocation());
-
+      
+         let [err1, data] = await this._to(getLocation());
+        
         //进入时自动弹出位置授权，如果未允许授权：弹出提示请允许授权，如果允许授权：请求数据
         if (err1) {
           this.posPopShow = true;
@@ -456,7 +360,6 @@ export default {
 
           return data;
         }
-      }
     },
     async initData(data) {
       this.$store.commit("SET_LOCATION_INFO", data);
@@ -465,6 +368,7 @@ export default {
       let [err2, BusinessList] = await this._to(
         this.$http.getBusinessPosition(data.latitude, data.longitude)
       );
+     
       if (!this.$store.state.user.ids) {
         let ids = "";
         for (const key in BusinessList.result) {
@@ -640,7 +544,7 @@ export default {
       this.$tips.alert("敬请期待...");
     },
     swiperChange: function(e) {
-      this.swiperCurrent = e.mp.detail.current;
+      this.swiperCurrent = e
     },
     async getAuthInfo() {
       if (!this.$store.state.user.userOpen) {
@@ -673,10 +577,11 @@ export default {
       //  	获取筛选的满减
       this.showTop = !this.showTop;
       this.showsheader2 = !this.showsheader2;
-      wx.pageScrollTo({
-        scrollTop: 1290,
-        duration: 300
-      });
+        window.scrollTo(0, 1290)
+      // wx.pageScrollTo({
+      //   scrollTop: 1290,
+      //   duration: 300
+      // });
     },
 
     onClose() {
@@ -752,9 +657,8 @@ export default {
       this.nearlySale = [...this.nearlySale, ...nearlySale.result.data];
     }
   },
-  async onShow() {
-    wx.hideTabBar();
-    this.hasauth();
+  async created() {
+   
     this.isBottom = false;
     this.clusterInfo = this.$store.state.user.clusterInfo
     //this.$store.state.user.clusterInfo.id

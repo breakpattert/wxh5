@@ -11,7 +11,8 @@ const fly = new Fly()
 // const tokenFly = new Fly()
 // let csrfToken = getStorage('openId') ? getStorage('openId') : null
 
-const baseUrlApi = 'https://sh.szwfy.com.cn/app/'
+const baseUrlApi = '/app'
+// const baseUrlApi = '/ewei_shopv2_api.php'
 
 fly.config.timeout = 10000
 
@@ -55,7 +56,11 @@ fly.interceptors.request.use(async (request) => {
 fly.interceptors.response.use(
   (response, promise) => {
     Tips.loaded()
-    return promise.resolve(response.data)
+    if (typeof response.data === 'string') {
+      return promise.resolve(JSON.parse(response.data))
+    } else {
+      return promise.resolve(response.data)
+    }   
   },
   (err, promise) => {
     // wx.showToast({

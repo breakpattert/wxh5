@@ -269,7 +269,7 @@ export default {
 
   },
   onPullDownRefresh() {},
- async onShow() {
+ async created() {
     this.exaHeight =0
     let data =null
   

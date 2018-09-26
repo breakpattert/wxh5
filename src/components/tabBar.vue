@@ -34,7 +34,7 @@ export default {
           bindData:[]
       };
    },
-   onshow(){
+   created(){
        
    },
    created() {

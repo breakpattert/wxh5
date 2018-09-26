@@ -36,7 +36,7 @@
     },
     mounted() {},
     onPullDownRefresh() {},
-    async onShow() {}
+    async created() {}
   };
 
 </script>

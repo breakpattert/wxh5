@@ -553,7 +553,7 @@ export default {
       userInfo: state => state.user.userInfo
     })
   },
-  async onShow() {
+  async created() {
     //		 	 this.$store.state.user;
     let userOpen = this.$store.state.user.userOpen;
 

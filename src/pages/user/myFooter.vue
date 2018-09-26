@@ -57,7 +57,7 @@ export default {
     console.log(this.list);
   },
   onPullDownRefresh() {},
-  onShow() {}
+  created() {}
 };
 </script>
 <style  scoped lang='scss'>

@@ -78,7 +78,7 @@ export default {
 
   
   onPullDownRefresh() {},
-  onShow() {},
+  created() {},
   onReachBottom: function () {
     console.log('加载更多')
     var that = this;

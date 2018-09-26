@@ -61,7 +61,7 @@ export default {
 
     },
   onPullDownRefresh() {},
- async onShow() {
+ async created() {
 
       const [getGoodsRateErr ,getGoodsRate ] = await this._to(this.$http.getGoodsRate(this.$route.query.id, 1, 2))
         this.getGoodsRateList = getGoodsRate.list.data

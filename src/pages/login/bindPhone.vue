@@ -194,7 +194,7 @@ export default {
     
   },
   onPullDownRefresh() {},
-  onShow() {
+  created() {
     this.avatar =this.$store.state.user.userInfo.avatarUrl
   }
 };

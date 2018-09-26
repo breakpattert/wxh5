@@ -31,7 +31,10 @@ export function getStorage (key) {
 
 export function getLocation (type) {
   return new Promise((resolve, reject) => {
-    wx.getLocation({ success: res => resolve(res), fail: err => reject(err) })
+    resolve({
+      latitude: 30.49984,
+      longitude: 114.34253
+    })
   })
 }
 export function NetworkStatusChange () {

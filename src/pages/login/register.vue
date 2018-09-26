@@ -185,7 +185,7 @@ export default {
     
   },
   onPullDownRefresh() {},
-  onShow() {}
+  created() {}
 };
 </script>
 <style  scoped lang='scss'>

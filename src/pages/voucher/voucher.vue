@@ -203,7 +203,7 @@
       console.log(item.pagePath)
       console.log(item.text)
     },
-    async onShow() {
+    async created() {
       wx.hideTabBar()
       this.hasauth();
       var res = wx.getSystemInfoSync();

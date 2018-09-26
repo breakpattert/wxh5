@@ -7,7 +7,7 @@ const api = {
   /**
    * 获取openid
    */
-  getOpenId: (jscode, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=wxapp.login&timestamp=${timestamp}`, {
+  getOpenId: (jscode, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=wxapp.login&timestamp=${timestamp}`, {
     code: jscode,
     comefrom: 'wxapp',
     openid: 'sns_wa_'
@@ -22,7 +22,7 @@ const api = {
       smsimgcode: 1,
       verifyImgCode
     } : {mobile}
-    $http.post(`ewei_shopv2_api.php?i=3&r=sms.login`, obj)
+    $http.post(`/ewei_shopv2_api.php?i=3&r=sms.login`, obj)
   },
   /**
    * 获取注册验证码
@@ -34,12 +34,12 @@ const api = {
       smsimgcode: 1,
       verifyImgCode
     } : {mobile}
-    $http.post(`ewei_shopv2_api.php?i=3&r=sms.register`, obj)
+    $http.post(`/ewei_shopv2_api.php?i=3&r=sms.register`, obj)
   },
   /**
    * 注册
    */
-  doRegister: (mobile, pwd, verifycode) => $http.post(`ewei_shopv2_api.php?i=3&r=account.register`, {
+  doRegister: (mobile, pwd, verifycode) => $http.post(`/ewei_shopv2_api.php?i=3&r=account.register`, {
     mobile,
     pwd,
     verifycode
@@ -47,21 +47,21 @@ const api = {
   /**
    * 手机号密码登录
    */
-  doPhonePwdLogin: (mobile, pwd) => $http.post(`ewei_shopv2_api.php?i=3&r=account.login`, {
+  doPhonePwdLogin: (mobile, pwd) => $http.post(`/ewei_shopv2_api.php?i=3&r=account.login`, {
     mobile,
     pwd
   }),
   /**
    * 手机号短信登录
    */
-  doPhoneSmsLogin: (mobile, smscode) => $http.post(`ewei_shopv2_api.php?i=3&r=account.login_sms`, {
+  doPhoneSmsLogin: (mobile, smscode) => $http.post(`/ewei_shopv2_api.php?i=3&r=account.login_sms`, {
     mobile,
     smscode
   }),
   /**
    * 获取手机号绑定验证码
    */
-  getPhoneBindSms: (mobile, openid) => $http.get('ewei_shopv2_api.php', {
+  getPhoneBindSms: (mobile, openid) => $http.get('/ewei_shopv2_api.php', {
     i: '3',
     r: 'sms.changemobile',
     mobile: mobile,
@@ -74,7 +74,7 @@ const api = {
   /**
    * 手机号绑定
    */
-  doPhoneBind: (mobile, code, password, openid, confirm = 0, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=member.bind.submit&timestamp=${timestamp}`, {
+  doPhoneBind: (mobile, code, password, openid, confirm = 0, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=member.bind.submit&timestamp=${timestamp}`, {
     mobile,
     code,
     password,
@@ -87,7 +87,7 @@ const api = {
   /**
    * openid登录
    */
-  doLogin: (jscode, openid, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=wxapp.login&timestamp=${timestamp}`, {
+  doLogin: (jscode, openid, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=wxapp.login&timestamp=${timestamp}`, {
     code: jscode,
     comefrom: 'wxapp',
     openid
@@ -95,7 +95,7 @@ const api = {
   /**
    * 微信登录后获取用户信息
    */
-  doAuth: (openid, encryptedData, iv, sessionKey, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  doAuth: (openid, encryptedData, iv, sessionKey, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'wxapp.auth',
     sessionKey,
@@ -109,7 +109,7 @@ const api = {
   /**
    * 获取购物车列表
    */
-  getCarList: (openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  getCarList: (openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member.cart.get_cart',
     comefrom: 'wxapp',
@@ -117,7 +117,7 @@ const api = {
     authkey,
     timestamp: getTimestamp()
   }),
-  getGoodsPick: (openid, id) => $http.get(`ewei_shopv2_api.php`, {
+  getGoodsPick: (openid, id) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'goods.get_picker',
     comefrom: 'wxapp',
@@ -125,26 +125,26 @@ const api = {
     id,
     timestamp: getTimestamp()
   }),
-  // addProducts: (openid, postObj, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=member.cart.add&timestamp=${timestamp}`, {
+  // addProducts: (openid, postObj, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=member.cart.add&timestamp=${timestamp}`, {
   //   comefrom: 'wxapp',
   //   openid: 'sns_wa_' + openid,
   //   id: postObj.id,
   //   total: postObj.total,
   //   optionid: postObj.optionid
   // }),
-  delateProducts: (openid, ids, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=member.cart.remove&timestamp=${timestamp}`, {
+  delateProducts: (openid, ids, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=member.cart.remove&timestamp=${timestamp}`, {
     comefrom: 'wxapp',
     openid,
     ids: [ids]
   }),
-  upDateProducts: (openid, postObj, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=member.cart.update&timestamp=${timestamp}`, {
+  upDateProducts: (openid, postObj, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=member.cart.update&timestamp=${timestamp}`, {
     comefrom: 'wxapp',
     openid,
     id: postObj.id,
     optionid: postObj.optionid,
     total: postObj.total
   }),
-  selectProducts: (openid, postObj, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=member.cart.select&timestamp=${timestamp}`, {
+  selectProducts: (openid, postObj, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=member.cart.select&timestamp=${timestamp}`, {
     comefrom: 'wxapp',
     openid,
     id: postObj.id,
@@ -153,7 +153,7 @@ const api = {
   /**
    * 附近商圈
    */
-  getBusinessPosition: (lat, lng) => $http.get(`ewei_shopv2_api.php`, {
+  getBusinessPosition: (lat, lng) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'index.dwsq',
     lat,
@@ -162,13 +162,13 @@ const api = {
   /**
    * 获取附近商铺
    */
-  getNearlyShop: (ids) => $http.post(`ewei_shopv2_api.php?i=3&r=index.fjdp`, {
+  getNearlyShop: (ids) => $http.post(`/ewei_shopv2_api.php?i=3&r=index.fjdp`, {
     ids
   }),
   /**
    * 获取附近优惠
    */
-  getNearlySale: (ids, lat, lng, page = 1, perPage = 4) => $http.post(`ewei_shopv2_api.php?i=3&r=index.fjyh`, {
+  getNearlySale: (ids, lat, lng, page = 1, perPage = 4) => $http.post(`/ewei_shopv2_api.php?i=3&r=index.fjyh`, {
     ids,
     lat,
     lng,
@@ -178,7 +178,7 @@ const api = {
   /**
    * 每日推荐
    */
-  getEveryRecommend: (id) => $http.get(`ewei_shopv2_api.php`, {
+  getEveryRecommend: (id) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'recommend.getList',
     comefrom: 'wxapp',
@@ -188,7 +188,7 @@ const api = {
   /**
    * 今日推荐
    */
-  getDadayRecomdend: () => $http.get(`ewei_shopv2_api.php`, {
+  getDadayRecomdend: () => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'goods.Bigsale',
     comefrom: 'wxapp',
@@ -197,7 +197,7 @@ const api = {
   /**
    * 本周逛哪
    */
-  getWeekList: (p, c) => $http.get(`ewei_shopv2_api.php`, {
+  getWeekList: (p, c) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'index.the_week',
     comefrom: 'wxapp',
@@ -208,7 +208,7 @@ const api = {
   /**
    * 商场列表
    */
-  marketList: (lat, lng, pindex, psize, second = 0, recommend = 0) => $http.get(`ewei_shopv2_api.php`, {
+  marketList: (lat, lng, pindex, psize, second = 0, recommend = 0) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'shop.marketList',
@@ -222,7 +222,7 @@ const api = {
   /**
    * 商场城市列表
    */
-  marketCityList: (lat, lng, pindex, psize, city) => $http.get(`ewei_shopv2_api.php`, {
+  marketCityList: (lat, lng, pindex, psize, city) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'shop.marketList',
@@ -235,7 +235,7 @@ const api = {
   /**
    * 所有商品分类
    */
-  getShopCategory: () => $http.get(`ewei_shopv2_api.php`, {
+  getShopCategory: () => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'shop.category'
@@ -243,7 +243,7 @@ const api = {
   /**
    * 查看每个分类下的店铺
    */
-  getSecondCategoryShopList: (cate, clusterId) => $http.get(`ewei_shopv2_api.php`, {
+  getSecondCategoryShopList: (cate, clusterId) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'shop.cateMerch',
@@ -253,7 +253,7 @@ const api = {
   /**
    * 查看推荐热门品牌和 大牌推荐
    */
-  getRecommendShop: (clusterId) => $http.get(`ewei_shopv2_api.php`, {
+  getRecommendShop: (clusterId) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'shop.Remerch',
@@ -262,7 +262,7 @@ const api = {
   /**
    * 个人信息修改
    */
-  upDatePersonInfo: (openid, avatar, gender, csrq) => $http.post(`ewei_shopv2_api.php?i=3&r=member.info.face`, {
+  upDatePersonInfo: (openid, avatar, gender, csrq) => $http.post(`/ewei_shopv2_api.php?i=3&r=member.info.face`, {
     openid,
     avatar,
     gender,
@@ -271,7 +271,7 @@ const api = {
   /**
    * 获取个人信息
    */
-  getPersonInfo: (openid) => $http.get(`ewei_shopv2_api.php`, {
+  getPersonInfo: (openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member.info.face',
     openid
@@ -279,7 +279,7 @@ const api = {
   /**
    * 上传文件
    */
-  upLoadImg: (openid, image) => $http.post(`ewei_shopv2_api.php?i=3&r=index.upload_img`, {
+  upLoadImg: (openid, image) => $http.post(`/ewei_shopv2_api.php?i=3&r=index.upload_img`, {
 
     openid,
     image
@@ -287,7 +287,7 @@ const api = {
   /**
    * 获取地址管理
    */
-  getAdressList: (openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  getAdressList: (openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member.address.get_list',
     comefrom: 'wxapp',
@@ -298,7 +298,7 @@ const api = {
   /**
    * 编辑地址管理
    */
-  editAdress: (id, realname, mobile, province, city, area, address, isdefault) => $http.post(`ewei_shopv2_api.php`, {
+  editAdress: (id, realname, mobile, province, city, area, address, isdefault) => $http.post(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'address.add',
     id,
@@ -313,7 +313,7 @@ const api = {
   /**
    * 新增地址管理
    */
-  addAdress: (realname, mobile, province, city, area, address, isdefault, openid, authkey, id) => $http.get(`ewei_shopv2_api.php`, {
+  addAdress: (realname, mobile, province, city, area, address, isdefault, openid, authkey, id) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'address.add',
     comefrom: 'wxapp',
@@ -330,7 +330,7 @@ const api = {
   /**
    * 删除地址
    */
-  deleteAdress: (id, openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  deleteAdress: (id, openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member.address.delete',
     comefrom: 'wxapp',
@@ -342,7 +342,7 @@ const api = {
   /**
    * 删除地址
    */
-  getAdressInfo: (id, openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  getAdressInfo: (id, openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member.address.get_detail',
     comefrom: 'wxapp',
@@ -354,7 +354,7 @@ const api = {
   /**
    * 商品详情
    */
-  getGoodsDetail: (id, openid) => $http.get(`ewei_shopv2_api.php`, {
+  getGoodsDetail: (id, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     openid,
@@ -364,7 +364,7 @@ const api = {
   /**
    * 获取商品评价
    */
-  getGoodsRate: (id, pindex, psize) => $http.get(`ewei_shopv2_api.php`, {
+  getGoodsRate: (id, pindex, psize) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_comments',
@@ -375,7 +375,7 @@ const api = {
   /**
    * 商品分类
    */
-  getcategory: (merchid, openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  getcategory: (merchid, openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_category',
@@ -387,7 +387,7 @@ const api = {
   /**
    * 商品列表
    */
-  getGoodsList: (merchid, openid, authkey, page) => $http.get(`ewei_shopv2_api.php`, {
+  getGoodsList: (merchid, openid, authkey, page) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_list',
@@ -400,7 +400,7 @@ const api = {
   /**
    * 商品列表按照销量排序
    */
-  getGoodsListBySale: (openid, authkey, page, by) => $http.get(`ewei_shopv2_api.php`, {
+  getGoodsListBySale: (openid, authkey, page, by) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_list',
@@ -414,7 +414,7 @@ const api = {
   /**
    * 商品列表按照价格升序降序排列
    */
-  getGoodsListByPrice: (openid, authkey, type, page) => $http.get(`ewei_shopv2_api.php`, {
+  getGoodsListByPrice: (openid, authkey, type, page) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_list',
@@ -431,7 +431,7 @@ const api = {
   /**
  * 商品筛选根据价格
  */
-  getPontByPrice: (openid, authkey, minprice, maxprice, page) => $http.get(`ewei_shopv2_api.php`, {
+  getPontByPrice: (openid, authkey, minprice, maxprice, page) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_list',
@@ -446,7 +446,7 @@ const api = {
   /**
    * 根据关键字搜索商品
    */
-  // getGoodsListByKeyWords: (merchid, openid, authkey, keywords, page) => $http.get(`ewei_shopv2_api.php`, {
+  // getGoodsListByKeyWords: (merchid, openid, authkey, keywords, page) => $http.get(`/ewei_shopv2_api.php`, {
   //  i: '3',
   //  comefrom: 'wxapp',
   //  r: 'goods.get_list',
@@ -463,7 +463,7 @@ const api = {
   /**
    * 查看我的待付款订单列表
    */
-  getOrderList: (openid, page = 1, status) => $http.get(`ewei_shopv2_api.php`, {
+  getOrderList: (openid, page = 1, status) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'order.get_list',
@@ -471,7 +471,7 @@ const api = {
     status,
     page
   }),
-  // getAllOrderList: (openid, page = 1) => $http.get(`ewei_shopv2_api.php`, {
+  // getAllOrderList: (openid, page = 1) => $http.get(`/ewei_shopv2_api.php`, {
   //   i: '3',
   //   comefrom: 'wxapp',
   //   r: 'order.get_list',
@@ -482,7 +482,7 @@ const api = {
   /**
    * 附近消息
    */
-  getMsgList: (openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  getMsgList: (openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'message.messages',
@@ -493,7 +493,7 @@ const api = {
   /**
    * 获取商铺信息
    */
-  getShopInfo: (merchid, lat, lng, openid) => $http.get(`ewei_shopv2_api.php`, {
+  getShopInfo: (merchid, lat, lng, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'store.index.info',
@@ -505,7 +505,7 @@ const api = {
   /**
    * 获取商品列表
    */
-  getShopGoodsList: (merchid, page = 1) => $http.get(`ewei_shopv2_api.php`, {
+  getShopGoodsList: (merchid, page = 1) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'store.index.goods_list',
@@ -515,7 +515,7 @@ const api = {
   /**
    * 获取商品促销列表
    */
-  getShopPromGoodsList: (merchid, isdiscount, page = 1) => $http.get(`ewei_shopv2_api.php`, {
+  getShopPromGoodsList: (merchid, isdiscount, page = 1) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'store.index.goods_list',
@@ -526,7 +526,7 @@ const api = {
   /**
    * 获取优惠券
    */
-  getCoupon: (openid, cate) => $http.get(`ewei_shopv2_api.php`, {
+  getCoupon: (openid, cate) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'sale.coupon.my.getlist',
@@ -537,7 +537,7 @@ const api = {
   /**
    * 领取优惠券
    */
-  getPay_coupon: (id, openid) => $http.get(`ewei_shopv2_api.php`, {
+  getPay_coupon: (id, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.pay_coupon',
@@ -547,7 +547,7 @@ const api = {
   /**
     *关注店铺的接口
     */
-  getfollow: (merchid, openid, isfollow) => $http.post(`ewei_shopv2_api.php?r=shop.follow&i=3`, {
+  getfollow: (merchid, openid, isfollow) => $http.post(`/ewei_shopv2_api.php?r=shop.follow&i=3`, {
     merchid,
     openid,
     isfollow
@@ -558,7 +558,7 @@ const api = {
   /**
      * 我的关注
      */
-  myfollow: (openid, page, perPage) => $http.get(`ewei_shopv2_api.php`, {
+  myfollow: (openid, page, perPage) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'shop.Myfollow',
     page: page,
@@ -568,7 +568,7 @@ const api = {
   /**
    * 我的收藏
    */
-  mylike: (openid, page = 1, perPage = 6) => $http.get(`ewei_shopv2_api.php`, {
+  mylike: (openid, page = 1, perPage = 6) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'shop.Mytoggle',
     page: page,
@@ -578,7 +578,7 @@ const api = {
   /**
    * 我的足迹
    */
-  myfooter: (openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  myfooter: (openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member.history.get_list',
     comefrom: 'wxapp',
@@ -589,7 +589,7 @@ const api = {
   /**
    * 收藏与取消
    */
-  goodstoggle: (goodsid, isfavorite, merchid, openid, authkey) => $http.post(`ewei_shopv2_api.php?r=goods.toggle&i=3`, {
+  goodstoggle: (goodsid, isfavorite, merchid, openid, authkey) => $http.post(`/ewei_shopv2_api.php?r=goods.toggle&i=3`, {
     goodsid,
     isfavorite,
     merchid,
@@ -601,7 +601,7 @@ const api = {
   /**
    * 获取获取商品规格选择
    */
-  get_picker: (id) => $http.get(`ewei_shopv2_api.php`, {
+  get_picker: (id) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_picker',
@@ -610,7 +610,7 @@ const api = {
   /**
    * 添加商品到购物车
    */
-  addGoods: (id, total, optionid, openid) => $http.get(`ewei_shopv2_api.php`, {
+  addGoods: (id, total, optionid, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'member.cart.add',
@@ -622,7 +622,7 @@ const api = {
   /**
    * 本周逛哪更多
    */
-  getWeekListMore: (clusterId, openid) => $http.get(`ewei_shopv2_api.php`, {
+  getWeekListMore: (clusterId, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'index.the_week_list',
@@ -632,7 +632,7 @@ const api = {
   /**
    * 查看商圈所有城市列表
    */
-  getcityList: () => $http.get(`ewei_shopv2_api.php`, {
+  getcityList: () => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'cluster.cityList'
@@ -640,7 +640,7 @@ const api = {
   /**
    * 搜索结果
    */
-  goodsSearchList: (keywords, openid, type) => $http.get(`ewei_shopv2_api.php`, {
+  goodsSearchList: (keywords, openid, type) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'index.search_goods_merch',
@@ -648,19 +648,19 @@ const api = {
     openid,
     type
   }),
-  searchHistory: (openid) => $http.get(`ewei_shopv2_api.php`, {
+  searchHistory: (openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'index.user_search_history',
     openid
   }),
-  hotWords: (openid) => $http.get(`ewei_shopv2_api.php`, {
+  hotWords: (openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'shop.hot',
     openid
   }),
-  deleteSearchHistory: (openid) => $http.get(`ewei_shopv2_api.php`, {
+  deleteSearchHistory: (openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'index.del_search_history',
@@ -669,7 +669,7 @@ const api = {
   /**
  * 获取库存
  */
-  getStock: (id, color, size) => $http.get(`ewei_shopv2_api.php`, {
+  getStock: (id, color, size) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'goods.get_stock',
@@ -680,7 +680,7 @@ const api = {
   /**
    * 创建订单
    */
-  createOrder: (id, toltal, optionId, openid) => $http.get(`ewei_shopv2_api.php`, {
+  createOrder: (id, toltal, optionId, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'order.create',
@@ -692,7 +692,7 @@ const api = {
   /**
    * 获取个人用户信息
    */
-  getUserInfo: (openid, authkey) => $http.get(`ewei_shopv2_api.php`, {
+  getUserInfo: (openid, authkey) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     r: 'member',
     comefrom: 'wxapp',
@@ -703,7 +703,7 @@ const api = {
   /**
    * 提交订单
    */
-  submitOrder: (goodsObj, addressid, fromcart, remark, openid) => $http.get(`ewei_shopv2_api.php`, {
+  submitOrder: (goodsObj, addressid, fromcart, remark, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'order.create.submit',
@@ -723,7 +723,7 @@ const api = {
   /**
    * 取消订单
    */
-  poinscancel: (id, openid, authkey, timestamp = getTimestamp()) => $http.post(`ewei_shopv2_api.php?i=3&r=order.op.cancel&timestamp=${timestamp}`, {
+  poinscancel: (id, openid, authkey, timestamp = getTimestamp()) => $http.post(`/ewei_shopv2_api.php?i=3&r=order.op.cancel&timestamp=${timestamp}`, {
     id,
     comefrom: 'wxapp',
     remark: '我不想买了',
@@ -733,7 +733,7 @@ const api = {
   /**
    * 订单支付
    */
-  orderPay: (id, openid) => $http.get(`ewei_shopv2_api.php`, {
+  orderPay: (id, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'order.pay',
@@ -744,7 +744,7 @@ const api = {
   /**
    * 订单详情
    */
-  orderDetail: (id, openid) => $http.get(`ewei_shopv2_api.php`, {
+  orderDetail: (id, openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'order.detail',
@@ -755,7 +755,7 @@ const api = {
   /**
    * 优惠通知
    */
-  saleMsg: (openid) => $http.get(`ewei_shopv2_api.php`, {
+  saleMsg: (openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'message.messages',
@@ -765,7 +765,7 @@ const api = {
    * 商圈筛选
   */
 
-  shopDistrict: (ids) => $http.get(`ewei_shopv2_api.php`, {
+  shopDistrict: (ids) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'index.enoughList',
@@ -775,7 +775,7 @@ const api = {
    * 通过人均消费筛选商圈
   */
 
-  perCapita: (ids, average, type, searchType, lat, lng, pindex = 1, psize = 5) => $http.get(`ewei_shopv2_api.php`, {
+  perCapita: (ids, average, type, searchType, lat, lng, pindex = 1, psize = 5) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'index.average_merch',
@@ -791,7 +791,7 @@ const api = {
   /**
  * 搜索商品筛选
  */
-  searchShop: (openid) => $http.get(`ewei_shopv2_api.php`, {
+  searchShop: (openid) => $http.get(`/ewei_shopv2_api.php`, {
     i: '3',
     comefrom: 'wxapp',
     r: 'message.messages',

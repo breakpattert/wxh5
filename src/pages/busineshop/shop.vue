@@ -9,40 +9,9 @@
         <div :class="{'starActive':fllow_s}"></div>
       </button>
     </div>
-    <goAuth></goAuth>
+ 
 
-    <!--优惠券滑动-->
-    <!--<div class="codeall">
-   			<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex;padding:15px 0;" :style="{ width: width_scroll + 'px' }">
-   				<view class="v_code" style="width:113px; height: 70.5px; display: inline-block;" v-for="(item,index) in shopinfo.coupon_list" :key="index">
-   						<img src="../../../static/images/img_smoll.png" alt="" />
-   						<div class="code_price">
-   							<h4>￥{{item.enough}}</h4>
-   							<p style="overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">{{item.couponname}}</p>
-   						</div>
-   						<div class="code_button">
-   							<p>
-   								优惠券
-   							</p>
-   							<button>点击领取</button>
-   						</div>
-   				</view>
-  
-
-   			</scroll-view>
-   		</div>-->
-    <!--弹窗优惠券-->
-    <!--<div class="discounts">
-      <div class="present" @click="toggleCouponsPopup">
-        <span class="gift">
-          <img src="../../../static/images/icon_gift.png" />
-        </span>
-        <span class="discount_msg">满600减100元券</span>
-      </div>
-      <div class="right-arrow">
-
-      </div>
-    </div>-->
+    
     <!--改版的店铺详情信息-->
     <div class="edit_shop_info">
       <div class="shop_detil">
@@ -78,8 +47,8 @@
    		</div>-->
     </div>
     <!-- 优惠券领取 -->
-    <van-popup :show="showCouponsbottom" custom-class="bottom" @close="toggleCouponsPopup" position="bottom">
-      <div>
+    <mt-popup  v-model="showCouponsbottom"  position="bottom">
+          <div>
         <view>
           <div class="onSale w100">
             <div class="header h40 lineBottom">
@@ -131,72 +100,76 @@
 
         </view>
       </div>
-    </van-popup>
+    </mt-popup>
+   
+
     <div class="swiper">
       <div class="navbar">
-        <block v-for="(item,index) in tabs" :key="index">
-          <div :id="index" :class="{'navbar_item_on':activeIndex == index}" class="navbar_item" @click="tabClick">
+        
+          <div v-for="(item,index) in tabs" :key="index" :id="index" :class="{'navbar_item_on':activeIndex == index}" class="navbar_item" @click="tabClick(index)">
             <div class="navbar_title" :class="{'selective':activeIndex == index}">{{item.name}}</div>
           </div>
-        </block>
-        <!--     <div class="navbar_slider" :class="navbarSliderClass"></div>-->
+   
       </div>
 
-      <swiper class="content" :duration="50" @change="swiperChange" :style="'height:'+contentHeight" :current="currentTab" @animationfinish="onAnimationfinish">
-        <swiper-item>
-          <div class="likeAll" id="item1">
+     <mt-swipe :show-indicators="false" :style="'height:'+contentHeight"  :defaultIndex="currentTab" :autoplay="false"
+           @change="swiperChange" class="content">
 
-            <div v-if="goodlist.data&&goodlist.data.length<=0" class="empty">
-              <img src="../../../static/images/icon_none.png">
-              <div>该商家还没发布促销信息</div>
-            </div>
+          <mt-swipe-item>
+                  <div class="likeAll" id="item1">
 
-            <div class="w100 item-wrap" v-if="goodlist.data&&goodlist.data.length>0">
-              <div @click="$router.push({ path:'/pages/goodsDetail/index',query: { id: item.id }})" class="item lineLeft lineBottom2" v-for="(item,index) in goodlist.data" :key="index">
-                <a href=""><img :src="item.thumb" alt=""></a>
-                <div class="item_text">
-                  {{item.title}}
+                      <div v-if="goodlist.data&&goodlist.data.length<=0" class="empty">
+                        <img src="../../../static/images/icon_none.png">
+                        <div>该商家还没发布促销信息</div>
+                      </div>
 
-                </div>
-                <div class="itemDetial">
+                      <div class="w100 item-wrap" v-if="goodlist.data&&goodlist.data.length>0">
+                        <div @click="$router.push({ path:'/pages/goodsDetail/index',query: { id: item.id }})" class="item lineLeft lineBottom2" v-for="(item,index) in goodlist.data" :key="index">
+                          <a href=""><img :src="item.thumb" alt=""></a>
+                          <div class="item_text">
+                            {{item.title}}
 
-                  <span class="fl colorf45d f14">￥{{item.marketprice}}</span>
-                  <span class="fr f12 color_s">{{item.keywords}}</span>
+                          </div>
+                          <div class="itemDetial">
 
-                </div>
-                <span class="z_price">7.5折</span>
-              </div>
-            </div>
-          </div>
+                            <span class="fl colorf45d f14">￥{{item.marketprice}}</span>
+                            <span class="fr f12 color_s">{{item.keywords}}</span>
 
-        </swiper-item>
-        <swiper-item>
-          <div class="likeAll" id="item2">
-            <div v-if="goodlist.data&&goodlist.data.length<=0" class="empty">
-              <img src="../../../static/images/icon_none.png">
-              <div>该商家还没发布商品</div>
-            </div>
+                          </div>
+                          <span class="z_price">7.5折</span>
+                        </div>
+                      </div>
+                    </div>
+          </mt-swipe-item>
 
-            <div class="w100 item-wrap" v-if="goodlist.data&&goodlist.data.length>0">
-              <div class="item lineLeft lineBottom2" v-for="(item2,index2) in P_List.data" :key="index2" @click="$router.push({ path:'/pages/goodsDetail/index',query: { id: item2.id }})">
-                <a href=""><img :src="item2.thumb" alt=""></a>
-                <div class="item_text">
-                  {{item2.title}}
-                  <!--<span>8.5折</span>-->
-                  <!--<span>{{diCount(item2.discounts_price,item2.marketprice)}}折</span>-->
-                </div>
-                <div class="itemDetial">
+          <mt-swipe-item>
+                <div class="likeAll" id="item2">
+                    <div v-if="goodlist.data&&goodlist.data.length<=0" class="empty">
+                      <img src="../../../static/images/icon_none.png">
+                      <div>该商家还没发布商品</div>
+                    </div>
 
-                  <span class="fl colorf45d f14">￥{{item2.marketprice}}</span>
-                  <span class="fr f12 color_s">已售{{item2.sales}}件</span>
+                    <div class="w100 item-wrap" v-if="goodlist.data&&goodlist.data.length>0">
+                      <div class="item lineLeft lineBottom2" v-for="(item2,index2) in P_List.data" :key="index2" @click="$router.push({ path:'/pages/goodsDetail/index',query: { id: item2.id }})">
+                        <a href=""><img :src="item2.thumb" alt=""></a>
+                        <div class="item_text">
+                          {{item2.title}}
+                          <!--<span>8.5折</span>-->
+                          <!--<span>{{diCount(item2.discounts_price,item2.marketprice)}}折</span>-->
+                        </div>
+                        <div class="itemDetial">
 
-                </div>
-                <span class="z_price">8.5折</span>
-              </div>
-            </div>
-          </div>
-        </swiper-item>
-      </swiper>
+                          <span class="fl colorf45d f14">￥{{item2.marketprice}}</span>
+                          <span class="fr f12 color_s">已售{{item2.sales}}件</span>
+
+                        </div>
+                        <span class="z_price">8.5折</span>
+                      </div>
+                    </div>
+                  </div>
+          </mt-swipe-item>
+   </mt-swipe>
+      
     </div>
   </div>
 </template>
@@ -252,9 +225,7 @@ export default {
     tabBar,
     sercah
   },
-  created() {
-    this.hasauth();
-  },
+  
   methods: {
     async hasauth() {
       const res = await getSetting();
@@ -295,7 +266,7 @@ export default {
           this.$route.query.id,
           data.latitude,
           data.longitude,
-          this.$store.state.user.userInfo.openId
+          // this.$store.state.user.userInfo.openId
         )
       );
       this.shopinfo = infolist[1].result;
@@ -306,7 +277,7 @@ export default {
       if (this.shopinfo.isfollow == "1") {
         this.$http.getfollow(
           this.$route.query.id,
-          this.$store.state.user.userInfo.openId,
+          // this.$store.state.user.userInfo.openId,
           0
         );
   
@@ -315,7 +286,7 @@ export default {
       } else {
         this.$http.getfollow(
           this.$route.query.id,
-          this.$store.state.user.userInfo.openId,
+          // this.$store.state.user.userInfo.openId,
           1
         );
      
@@ -324,7 +295,8 @@ export default {
       }
      },
     tabClick(e) {
-      this.activeIndex = e.currentTarget.id;
+      
+      this.activeIndex = e;
 
       this.currentTab = this.activeIndex;
     },
@@ -333,25 +305,8 @@ export default {
       //   console.log(e);
     },
     swiperChange(e) {
-      this.currentTab = e.mp.detail.current;
+      this.currentTab = e;
       this.activeIndex = this.currentTab;
-      if (this.currentTab == 0) {
-        var query = wx.createSelectorQuery();
-        query
-          .select("#item1")
-          .boundingClientRect(res => {
-            this.contentHeight = res.height + "px";
-          })
-          .exec();
-      } else {
-        var query = wx.createSelectorQuery();
-        query
-          .select("#item2")
-          .boundingClientRect(res => {
-            this.contentHeight = res.height + "px";
-          })
-          .exec();
-      }
     },
     //  处理时间戳
 
@@ -371,23 +326,12 @@ export default {
     }
   },
   async mounted() {
-    var res = wx.getSystemInfoSync();
+
 
 
     console.log(this.$route.query.id);
 
-	
-//	let PromGoodsList = await this._to(
-//    this.$http.getShopPromGoodsList(this.$route.query.id)
-//  );
 
-//		var query = wx.createSelectorQuery()
-//			query.select('#item1').boundingClientRect((res) => {
-//				console.log(this.goodlist[1].data.length,6)
-//				this.contentHeight = res.height + 'px';
-//				
-//			}).exec()
-//		console.log(this.goodlist.data.length)
 
 	
   },
@@ -407,28 +351,20 @@ export default {
     }
   },
   onPullDownRefresh() {},
-  onTabItemTap(item) {
-    console.log(item.index);
-    console.log(item.pagePath);
-    console.log(item.text);
-  },
-  async onShow() {
-    wx.hideTabBar();
-    this.hasauth();
+ 
+  async created() {
+
+  
     this.shopinfo = "";
     this.goodlist = "";
     this.P_List = "";
-    var res = wx.getSystemInfoSync();
-    this.winWidth = res.windowWidth;
-    this.winHeight = res.windowHeight - 60 - 50;
-
-    // let [err1, data] = await this._to(getLocation());
+ 
     const [infolist, PromGoodsList, PromList] = await this._U.PromiseAll(
       this.$http.getShopInfo(
         this.$route.query.id,
         this.$store.state.user.locationInfo.latitude,
         this.$store.state.user.locationInfo.longitude,
-        this.$store.state.user.userInfo.openId
+        // this.$store.state.user.userInfo.openId
       ),
       this.$http.getShopPromGoodsList(this.$route.query.id),
       this.$http.getShopGoodsList(this.$route.query.id)
@@ -439,7 +375,8 @@ export default {
     this.P_List = PromList.result;
     console.log(this.currentTab);
     if(this.currentTab==0){
-			this.goodlist = PromGoodsList[1].result;
+      
+			this.goodlist = PromGoodsList.result;
 				let s = Math.ceil(this.goodlist.data.length);
 			if(s==0){
     		this.contentHeight = "250px";
@@ -447,14 +384,7 @@ export default {
 	  			this.contentHeight = 256*s + 'px';
 	  	}
 		}
-    debugger
-//  let s = Math.ceil(this.goodlist.data.length)
-//	
-//		if(s==0){
-//  	this.contentHeight = "250px";
-//	}else{
-//			this.contentHeight = 256*s + 'px';
-//	}
+ 
 
     this.shopinfo.coupon_list.map(i => {
       i.timestart = this._U.formatTime(i.timestart);

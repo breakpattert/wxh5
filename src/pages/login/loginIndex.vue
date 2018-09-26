@@ -96,7 +96,7 @@ export default {
     // });
   },
   onPullDownRefresh() {},
-  onShow() {}
+  created() {}
 };
 </script>
 

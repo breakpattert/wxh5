@@ -14,7 +14,7 @@
             </div>
             <input v-if="pwdType=='password'" type="password" :focus='eysFocus' v-model="pwd1"  placeholder="请输入密码" @focus="inputFocus(2)" @blur="blur(2)" >
             <input v-if="pwdType=='text'" type="text" :focus='eysFocus' v-model="pwd1"  placeholder="请输入密码" @focus="inputFocus(2)" @blur="blur(2)" >
-            <span class="eysIcon" :class="{'active':eysIconShow}" @click="eysChange()"></span>
+            <span class="eysIcon" :class="{'active':eysIccreated}" @click="eysChange()"></span>
         </div>
         <div class="fr color9a">忘记密码？</div>
         <div class="loginBtn f18" @click="doLogin()">登录</div>
@@ -46,7 +46,7 @@ export default {
     return {
       input_active: false,
       pwdType: "password",
-      eysIconShow: false,
+      eysIccreated: false,
       eysFocus: false,
       phone: "",
       pwd1: ""
@@ -157,8 +157,8 @@ export default {
     },
     eysChange() {
       this.eysFocus = !this.eysFocus;
-      this.eysIconShow = !this.eysIconShow;
-      this.eysIconShow ? (this.pwdType = "text") : (this.pwdType = "password");
+      this.eysIccreated = !this.eysIccreated;
+      this.eysIccreated ? (this.pwdType = "text") : (this.pwdType = "password");
     },
    async doLogin() {
       if (!this.$validate.phone(this.phone)) {
@@ -186,7 +186,7 @@ export default {
   },
   mounted() {},
   onPullDownRefresh() {},
-  onShow() {}
+  created() {}
 };
 </script>
 <style  scoped lang='scss'>

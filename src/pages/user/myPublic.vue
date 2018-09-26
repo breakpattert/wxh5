@@ -33,7 +33,7 @@ export default {
     // this.list = result[1].data.data;
   },
   onPullDownRefresh() {},
-  onShow() {}
+  created() {}
 };
 </script>
 <style  scoped lang='scss'>

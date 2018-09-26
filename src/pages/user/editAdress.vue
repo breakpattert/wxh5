@@ -196,7 +196,7 @@ export default {
         userInfo: state => state.user.userInfo
       }),
   },
-  async onShow() {
+  async created() {
     this.id=this.$route.query.id;    
     this.openid = this.$store.state.user.userOpen.openid;
     this.authkey = this.$store.state.user.userInfo.authkey;

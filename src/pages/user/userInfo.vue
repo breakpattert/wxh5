@@ -129,7 +129,7 @@ export default {
     console.log(this.index);
   },
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
     this.avatarUrl =this.userInfo.avatarUrl
     const res = await this.$http.getPersonInfo(this.$store.state.user.userInfo.openId);
     this.avatarUrl =res.avatar

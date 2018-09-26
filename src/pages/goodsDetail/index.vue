@@ -1,7 +1,8 @@
 <template>
   <div class="container goodsDetail">
-    <van-popup :show="showbottom" custom-class="bottom" @close="togglePopup" position="bottom">
-    <div class="big_mask">
+
+     <mt-popup  v-model="showbottom"  position="bottom">
+          <div class="big_mask">
       <div class="readyToBuy" >
         <div class="close_mask">
           <div @click="togglePopup" class="mask">X</div>
@@ -71,11 +72,10 @@
         </div>
       </div>
     </div>
-    </van-popup>
-    
-    <!-- 加入购物车 -->
-    <van-popup :show="showAddCarbottom" custom-class="bottom" @close="toggleAddCarPopup" position="bottom">
-    <div class="big_mask">
+     </mt-popup>
+
+     <mt-popup  v-model="showAddCarbottom"  position="bottom">
+          <div class="big_mask">
       <div class="readyToBuy" >
         <div class="close_mask">
           <div @click="toggleAddCarPopup" class="mask">X</div>
@@ -144,10 +144,10 @@
         </div>
       </div>
     </div>
-    </van-popup>
-    <!-- 满减促销 -->
-    <van-popup :show="showActivitybottom" custom-class="bottom" @close="toggleActivityPopup" position="bottom">
-      <div class="onSale">
+     </mt-popup>
+
+     <mt-popup  v-model="showActivitybottom"  position="bottom">
+          <div class="onSale">
           <div class="header h40">
               <span class="fl ml15"> 促销活动</span>
               <span class="fr mr15 bgc_img" @click="oend2()">
@@ -168,11 +168,11 @@
               <button>确定</button>
           </div>
       </div>
-    </van-popup>
+     </mt-popup>
+    
 
-     <!-- 优惠券领取 -->
-    <van-popup :show="showCouponsbottom" custom-class="bottom" @close="toggleCouponsPopup" position="bottom">
-      <div>
+    <mt-popup  v-model="showCouponsbottom"  position="bottom">
+          <div>
         <view >
              <div class="onSale">
 			          <div class="header h40 lineBottom">
@@ -205,7 +205,15 @@
            
         </view>
       </div>
-    </van-popup>
+     </mt-popup>
+    
+    <!-- 加入购物车 -->
+    
+    <!-- 满减促销 -->
+   
+
+     <!-- 优惠券领取 -->
+   
 
     <div class="swiperContainer">
 			<div class="find_list lineTop">
@@ -226,21 +234,30 @@
 					<span if="poinstyle==3"></span>
 				</li>-->
 			</div>
-      <swiper :indicator-dots="indicatorDots" :current="swiperCurrent" :autoplay="autoplay" :interval="interval" :duration="duration" @change="swiperChange" class="swiper">
+
+      <mt-swipe :show-indicators="indicatorDots" :defaultIndex="swiperCurrent" :autoplay="autoplay"
+          :auto="duration" @change="swiperChange" class="swiper">
+            <mt-swipe-item 
+            v-for="(item,index) in goodsDetail?goodsDetail.thumbs:[]" :key="index" >
+              <img :src="item" class="slide-image" />
+             </mt-swipe-item>
+      </mt-swipe>
+
+      <!-- <swiper :indicator-dots="indicatorDots" :current="swiperCurrent" :autoplay="autoplay" :interval="interval" :duration="duration" @change="swiperChange" class="swiper">
 
         <block v-for="(item,index) in goodsDetail?goodsDetail.thumbs:[]" :key="index">
           <swiper-item>
             <image :src="item" class="slide-image" />
           </swiper-item>
         </block>
-      </swiper>
+      </swiper> -->
       <!--<div class="dots">
         {{swiperCurrent+1}}/{{goodsDetail.thumbs?goodsDetail.thumbs.length:0}}
       </div>-->
       	<div class="dots">
-									<block v-for="(item,index) in goodsDetail?goodsDetail.thumbs:[]" :key="index">
-										<view class="dot" :class="{'active':swiperCurrent == index}"></view>
-									</block>
+							
+										<div v-for="(item,index) in goodsDetail?goodsDetail.thumbs:[]" :key="index" class="dot" :class="{'active':swiperCurrent == index}"></div>
+	
 	
 								</div>
 
@@ -368,16 +385,7 @@
       <div class="todos">
         <div class="three" style="overflow:hidden;position:relative;">
         	 <div class='contact'>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                  <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-    
-     
+             
   
             </div>
           <div class="iconPic">
@@ -427,7 +435,7 @@ export default {
       swiperCurrent: 0,
       autoplay: true,
       interval: 3000,
-      duration: 1500,
+      duration: 5000,
       showbottom: false,
       showAddCarbottom:false,
       showActivitybottom: false,
@@ -523,7 +531,7 @@ export default {
       this.showCouponsbottom =!this.showCouponsbottom
     },
     swiperChange: function (e) {
-      this.swiperCurrent = e.mp.detail.current;
+      this.swiperCurrent = e
     },
     oend(){
     	this.showCouponsbottom=false;
@@ -618,50 +626,37 @@ export default {
     	  this.spanindexs=indexs
     	  this.spanindexs=indexs
     	  if(this.spanindexs==0){
-    	  	  	 wx.pageScrollTo({
-		        scrollTop: 0,
-		        duration: 300
-		      });
+              window.scrollTo(0, 0)
+
+    	  
     	  }else if(this.spanindexs==1){
-    	  	  	 wx.pageScrollTo({
-        scrollTop: 578,
-        duration: 300
-      });
+          window.scrollTo(0, 578)
+    	 
     	  }else if(this.spanindexs==2){
-    	  	  wx.pageScrollTo({
-			        scrollTop: 621,
-			        duration: 300
-			      });
+          window.scrollTo(0, 621)
+    	  
     	  }
     	
   
     },
     poin_detil_2(){
     	this.poinstyle=1
-    	 wx.pageScrollTo({
-        scrollTop: 0,
-        duration: 300
-      });
+    window.scrollTo(0, 0)
     },
         poin_detil_1(){
     	this.poinstyle=2
-    	 wx.pageScrollTo({
-        scrollTop: 578,
-        duration: 300
-      });
+    	window.scrollTo(0, 578)
     },
            poin_detil_3(){
     	this.poinstyle=3
-    	 wx.pageScrollTo({
-        scrollTop: 621,
-        duration: 300
-      });
+    	  window.scrollTo(0, 621)
     }
   },
   mounted() { 
 
   },
-  async onShow() { 
+  async created() { 
+    
     this.colorIsSelect =null
     this.sizeIsSelect =null
     this.colorId=null
@@ -711,6 +706,7 @@ export default {
 </script>
 <style  scoped lang='scss'>
   
+
 .goodsDetail {
   position: relative;
     .coupon-picker .option-picker-inner {
@@ -1212,7 +1208,8 @@ export default {
     	/*border:0.5px solid red;*/
     	line-height:48px;
     	padding:0 63px;
-    	margin-bottom:1px;
+      margin-bottom:1px;
+      top:0px;
     	li{
     		float:left;
     		position: relative;

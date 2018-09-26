@@ -4,15 +4,18 @@ import Vue from 'vue'
 import App from '@/App'
 import router from '@/router'
 import 'lib-flexible/flexible'
-
 import store from '@/store'
-
 import api from '@/utils/api'
 import Utils from '@/utils'
 import to from 'await-to-js'
-
 import Tips from '@/utils/tips'
 import Validate from '@/utils/validate'
+import { Swipe, SwipeItem, Popup, Range } from 'mint-ui'
+
+Vue.component(Swipe.name, Swipe)
+Vue.component(SwipeItem.name, SwipeItem)
+Vue.component(Popup.name, Popup)
+Vue.component(Range.name, Range)
 Vue.prototype._U = Utils
 Vue.prototype.$tips = Tips
 Vue.prototype.$validate = Validate

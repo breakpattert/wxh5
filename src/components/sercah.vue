@@ -18,7 +18,7 @@ export default {
    		
       };
    },
-   onshow(){
+   created(){
        
    },
    created() {

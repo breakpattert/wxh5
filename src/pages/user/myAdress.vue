@@ -80,7 +80,7 @@ export default {
       userInfo: state => state.user.userInfo
     })
   },
-  async onShow() {
+  async created() {
     var that = this;
     this.openid = this.$store.state.user.userOpen.openid;
     this.authkey = this.$store.state.user.userInfo.authkey;

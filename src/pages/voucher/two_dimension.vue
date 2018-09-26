@@ -77,7 +77,7 @@ export default {
    
   },
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
     const res  =await this.$http.getPersonInfo();
    
   }

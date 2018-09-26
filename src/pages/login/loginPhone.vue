@@ -106,7 +106,7 @@ export default {
     // this.openid = (await getStorage("userOpenObj")).data.openid;
   },
   onPullDownRefresh() {},
-  onShow() {}
+  created() {}
 };
 </script>
 <style  scoped lang='scss'>

@@ -1,4 +1,3 @@
-
 export default class wx {
   static getSystemInfoSync () {
     return {
@@ -22,17 +21,17 @@ export default class wx {
 
   static getLocation () {
     return {
-      windowHeight: 624,
-      windowWidth: 414
+      latitude: 30.49984,
+      longitude: 114.34253
     }
   }
 
-// getSystemInfoSync
-// setStorage
-// getStorage
+  // getSystemInfoSync
+  // setStorage
+  // getStorage
 
-// NetworkStatusChange
-// chooseImage
-// showActionSheet
-// requestPayment
+  // NetworkStatusChange
+  // chooseImage
+  // showActionSheet
+  // requestPayment
 }

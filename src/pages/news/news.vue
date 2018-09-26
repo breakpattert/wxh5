@@ -224,7 +224,7 @@ export default {
 
   },
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
     wx.hideTabBar();
     this.hasauth();
 

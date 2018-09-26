@@ -1,8 +1,8 @@
 <template>
 
 <div class="container">
-    <div v-if="!hasAuthInfo" @click="goAuth" class="fullPage mt132 mb50"></div>
-     <!-- <div  @click="isBuild" class="fansAuth"></div> -->
+    <!-- <div v-if="!hasAuthInfo" @click="goAuth" class="fullPage mt132 mb50"></div> -->
+ 
      <tabBar cur_index="3"></tabBar>
 
     <!-- <button v-if="!isNoticeAuth" open-type="getUserInfo"  @getuserinfo="bindGetUserInfo" @click="getUserInfo11" style='width:100%;height:100%;position:absolute;opacity:0;z-index:9999999999;'>
@@ -277,8 +277,8 @@ export default {
   onPullDownRefresh() {},
  
 
- async onShow() {
-     wx.hideTabBar()
+ async created() {
+   
 
      const arr = [this.$store.state.user.userInfo.openId , this.$store.state.user.userInfo.authkey]
      const [res,data] = await  this._U.PromiseAll(

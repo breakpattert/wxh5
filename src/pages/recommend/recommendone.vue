@@ -63,7 +63,7 @@ export default {
   },
   async mounted() {},
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
 		// 今日推荐
 		
       let [err, everyRecommendList] = await this._to(

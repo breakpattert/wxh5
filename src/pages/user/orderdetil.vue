@@ -224,7 +224,7 @@ export default {
    
   },
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
     // const res  =await this.$http.getPersonInfo();
     const orderDetail = await this.$http.orderDetail(this.$route.query.id,this.$store.state.user.userInfo.openId)
     orderDetail.goods.map(i=>{

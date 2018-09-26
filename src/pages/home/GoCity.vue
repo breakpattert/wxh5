@@ -1,7 +1,7 @@
 <template>
     <div class="lineTop">
         <div class="clusterList">
-          <van-popup :show="showCenter" custom-class="center" position="center"
+          <!-- <van-popup :show="showCenter" custom-class="center" position="center"
          @close="togglePopup" >
          	 <div class="item item_2 lineBottom">
               		选择商圈
@@ -10,7 +10,7 @@
             @click="goHome(i)">
                 {{i.name}}
             </div>
-        </van-popup>
+        </van-popup> -->
         </div>
       <div class="search-city" v-if="show_search">
       	<!--<div class="city_text">
@@ -99,11 +99,8 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
   var showCityTemp
   export default {
     mounted: function () {
-        wx.pageScrollTo({
-        scrollTop: 500,
-        duration: 300
-        })
-    //   window.scrollTo(0, 500)
+      
+      window.scrollTo(0, 500)
 
 
     },
@@ -140,30 +137,38 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
       },
        naver:function (id) { // 点击右边字母滚动
         this.tipString = id
-      
-        
-         var query = wx.createSelectorQuery()
-            query.select('#'+id).boundingClientRect((res)=>{
-             this.tipAppearShow=true
-                setTimeout(()=> {
-                this.tipAppearShow=false
-                }, 500)
+
+        let obj = document.getElementById(id)
+        let tip = document.getElementById('tip')
+         this.tipAppearShow=true
+          setTimeout(()=> {
+          this.tipAppearShow=false
+          }, 500)
+        let oPos = obj.offsetTop
+        return window.scrollTo(0, oPos - 36)
+
+
+        //  var query = wx.createSelectorQuery()
+        //     query.select('#'+id).boundingClientRect((res)=>{
+        //      this.tipAppearShow=true
+        //         setTimeout(()=> {
+        //         this.tipAppearShow=false
+        //         }, 500)
                 
-                let posY =  getStorage('posY')
-                let oPos =  res.top 
-                let Y = posY?posY:0
-                console.log(oPos)
-                console.log(oPos+Y)
-                wx.pageScrollTo({
-                    scrollTop: oPos+Y - 36,
-                    duration: 300
-                })
-                   setStorage('posY',oPos-36)
-                }).exec()
+        //         let posY =  getStorage('posY')
+        //         let oPos =  res.top 
+        //         let Y = posY?posY:0
+        //         console.log(oPos)
+        //         console.log(oPos+Y)
+        //         wx.pageScrollTo({
+        //             scrollTop: oPos+Y - 36,
+        //             duration: 300
+        //         })
+        //            setStorage('posY',oPos-36)
+        //         }).exec()
        
         
-          
-        return 
+      
       },
       cityFilter: function (city) {  // 城市搜索筛选
         let showCityListTemp
@@ -181,7 +186,7 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
         if (showCity.length === 0) {
         //   let _showCityContent = this.$refs.tip.showCityContent
           this.showCityContentInnerTxt = '查询不到结果'
-          tipShow:true
+          this.tipShow=true
         //   _showCityContent.setAttribute('class', 'tipShow')
         } else {
         //   this.$refs.showCityContent.innerText = ''
@@ -198,7 +203,7 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
           this.$store.state.user.locationInfo.latitude, this.$store.state.user.locationInfo.longitude, 1, 20, i
         ))
         
-        
+  
         
         let ids =''
         res.result.data.map(i=>{
@@ -212,6 +217,7 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
         // ···································································
       },
       poin_tabaddress(){
+       
       	this.ishowbox1=!this.ishowbox1;
       	this.ishowbox2=!this.ishowbox2;
       	this.show_search=true;
@@ -271,7 +277,8 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
         ishowbox2:true,
         address_name:'',
         address_lodding:'重新定位',
-        show_search:false
+        show_search:false,
+        tipShow:false
         
       }
     },
@@ -280,7 +287,7 @@ import { setStorage, getStorage,getLocation} from "@/utils/wechat";
         this.cityFilter(newCitySearch)
       }
     },
-   async onShow(){
+   async created(){
      this.locationCity =this.$store.state.user.clusterInfo.city
      
          const [err, response]  =  await  this._to(this.$http.getcityList())

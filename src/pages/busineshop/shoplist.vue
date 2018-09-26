@@ -133,7 +133,7 @@ export default {
   },
   mounted() {},
   onPullDownRefresh() {},
-  async onShow() {
+  async created() {
     console.log(this.$route.query); //id 21 title 万象城
     wx.setNavigationBarTitle({ title: this.$route.query.title });
 
