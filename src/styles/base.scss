@@ -7,6 +7,8 @@
 }
 
 body,button,label,input,select,textarea,span{
+  outline: none;
+  border: none;
   font-size: 14px;
   color: #323232;
   box-sizing: border-box;

@@ -51,15 +51,18 @@
         <mt-swipe style="height:260px" :show-indicators="indicatorDots" :defaultIndex="swiperCurrent" :autoplay="autoplay"
           :auto="duration" @change="swiperChange" class="swiper">
          
-            <mt-swipe-item v-for="(item,index) in everyRecommendList" :key="index"
-             @click="herfrecommend(item.type,item.linkid,item.id)">
-              <div>
-                <img class="banner" :src="item.thumb" alt="">
-              </div>
-              <div class="recommendContent h130 lineBottom">
-                <div class="contentTitle mt12 f13 color29">{{item.title}}</div>
-                <div class="mt8 color9a f12">{{item.description}}</div>
-              </div>
+            <mt-swipe-item v-for="(item,index) in everyRecommendList" :key="index">
+
+             <div  @click="herfrecommend(item.type,item.linkid,item.id)">
+                 <div>
+                    <img class="banner" :src="item.thumb" alt="">
+                  </div>
+                  <div class="recommendContent h130 lineBottom">
+                    <div class="contentTitle mt12 f13 color29">{{item.title}}</div>
+                    <div class="mt8 color9a f12">{{item.description}}</div>
+                  </div>
+             </div>
+             
             </mt-swipe-item>
          
         </mt-swipe>
@@ -593,6 +596,7 @@ export default {
     },
     //跳转四个页面
     herfrecommend(type, linkid, id) {
+      
       if (type == 1) {
         this.$router.push({
           path: "/pages/goodsDetail/index",

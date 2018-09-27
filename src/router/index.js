@@ -10,5 +10,5 @@ export default new Router({
     route.component = () => import(`@/${paths[0]}/${paths[1]}/${paths[2]}`)
     return route
   }),
-  mode: 'history'
+  mode: 'hash'
 })

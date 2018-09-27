@@ -10,12 +10,20 @@ import Utils from '@/utils'
 import to from 'await-to-js'
 import Tips from '@/utils/tips'
 import Validate from '@/utils/validate'
-import { Swipe, SwipeItem, Popup, Range } from 'mint-ui'
+import {
+  Swipe,
+  SwipeItem,
+  Popup,
+  Range,
+  CellSwipe
+} from 'mint-ui'
 
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Popup.name, Popup)
 Vue.component(Range.name, Range)
+Vue.component(CellSwipe.name, CellSwipe)
+
 Vue.prototype._U = Utils
 Vue.prototype.$tips = Tips
 Vue.prototype.$validate = Validate
@@ -31,3 +39,20 @@ const app = new Vue({
   ...App
 })
 app.$mount()
+
+router.beforeEach((to, from, next) => {
+  console.log(to.path)
+  console.log(from)
+  console.log(next)
+  next()
+  // var userInfo = window.localStorage.getItem('token')
+  // if (userInfo) {
+  //   next()
+  // } else {
+  //   if (to.path === '/login') {
+  //     next()
+  //   } else {
+  //     next('/login')
+  //   }
+  // }
+})

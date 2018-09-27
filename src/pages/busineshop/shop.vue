@@ -112,7 +112,7 @@
    
       </div>
 
-     <mt-swipe :show-indicators="false" :style="'height:'+contentHeight"  :defaultIndex="currentTab" :autoplay="false"
+     <mt-swipe :show-indicators="false" :style="'height:'+contentHeight"  :defaultIndex="currentTab" :auto="0"
            @change="swiperChange" class="content">
 
           <mt-swipe-item>
@@ -125,7 +125,7 @@
 
                       <div class="w100 item-wrap" v-if="goodlist.data&&goodlist.data.length>0">
                         <div @click="$router.push({ path:'/pages/goodsDetail/index',query: { id: item.id }})" class="item lineLeft lineBottom2" v-for="(item,index) in goodlist.data" :key="index">
-                          <a href=""><img :src="item.thumb" alt=""></a>
+                          <a href="javascript:;"><img :src="item.thumb" alt=""></a>
                           <div class="item_text">
                             {{item.title}}
 
@@ -151,7 +151,7 @@
 
                     <div class="w100 item-wrap" v-if="goodlist.data&&goodlist.data.length>0">
                       <div class="item lineLeft lineBottom2" v-for="(item2,index2) in P_List.data" :key="index2" @click="$router.push({ path:'/pages/goodsDetail/index',query: { id: item2.id }})">
-                        <a href=""><img :src="item2.thumb" alt=""></a>
+                        <a href="javascript:;"><img :src="item2.thumb" alt=""></a>
                         <div class="item_text">
                           {{item2.title}}
                           <!--<span>8.5折</span>-->

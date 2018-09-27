@@ -9,13 +9,6 @@ module.exports = [
     }
   },
   {
-    path: '/pages/home/home',
-    name: 'home',
-    meta: {
-      nav: true
-    }
-  },
-  {
     path: '/pages/nearly/nearly',
     name: 'nearly',
     meta: {

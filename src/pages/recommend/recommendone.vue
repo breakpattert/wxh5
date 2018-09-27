@@ -1,8 +1,9 @@
 <template>
 <div class="container lineTop">
 	<div class="w100">
-		 <div v-html="content">
-			
+		 <div v-html="content" >
+			 
+		
 		</div>
 		 <!-- <wxParse :content="content" @preview="preview" @navigate="navigate" /> -->
 		<!-- <div v-html="content">
