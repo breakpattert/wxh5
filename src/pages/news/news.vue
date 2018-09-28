@@ -4,7 +4,7 @@
     </button> -->
 	 <!-- <div  @click="isBuild" class="fansAuth"></div> -->
 		<tabBar cur_index="2"></tabBar>
-		<goAuth></goAuth>
+		<!-- <goAuth></goAuth> -->
 		<!--商铺消息？-->
 		<div v-if="merchNotice.length!==0&&shopNotice.length!==0">
 	
@@ -165,8 +165,8 @@ export default {
     tabBar
   },
   created() {
-    this.hasauth();
-    var res = wx.getSystemInfoSync();
+    // this.hasauth();
+    // var res = wx.getSystemInfoSync();
 
     this.width_scroll = res.windowWidth - 30;
   },
@@ -225,8 +225,8 @@ export default {
   },
   onPullDownRefresh() {},
   async created() {
-    wx.hideTabBar();
-    this.hasauth();
+    // wx.hideTabBar();
+    // this.hasauth();
 
     const data = await this.$http.saleMsg(this.$store.state.user.userInfo.openId)
     this.shopNotice = data.list.shopNotice;

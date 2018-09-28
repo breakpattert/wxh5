@@ -17,8 +17,8 @@
 		
     </div>
   	<div class="mt10" v-if="list&&list.length>0">
-						<zan-loadmore v-if="!isBottom" type="loading" ></zan-loadmore>
-						<zan-loadmore v-if="isBottom" type="text"  text="暂无数据"></zan-loadmore>
+						<!-- <zan-loadmore v-if="!isBottom" type="loading" ></zan-loadmore>
+						<zan-loadmore v-if="isBottom" type="text"  text="暂无数据"></zan-loadmore> -->
 			</div>
 </div>
 </template>

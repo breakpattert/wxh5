@@ -43,7 +43,7 @@ app.$mount()
 router.beforeEach((to, from, next) => {
   console.log(to.path)
   console.log(from)
-  console.log(next)
+  // console.log(next)
   next()
   // var userInfo = window.localStorage.getItem('token')
   // if (userInfo) {

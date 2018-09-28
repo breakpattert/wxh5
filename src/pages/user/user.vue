@@ -122,42 +122,7 @@
             <div class="hander_name">客服中心</div>
              <div class="hander_name font_all">10:00-22:00</div>
               <div class='contact'>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
-                <contact-button type="default-light" size="30" session-from="weapp">
-                </contact-button>
+             
             </div>
             <div class="arrow"></div>
         </div>
